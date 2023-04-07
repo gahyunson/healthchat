@@ -4,164 +4,188 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수술 후 궁금한 것 물어봐!</title>
+    <title>재활냥이의 상담소</title>
     <style>
-        .chat-window {
+        /* 전체적인 스타일링 */
+        body {
+            background-color: #fbfbfb;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 550px;
+            border: 1px dotted #dc9c25;
+            margin: 20px auto;
+            padding: 0;
+            
+        }
+        .healthcat img {
+            margin-right: 1rem;
+            /* 추가 스타일링을 위한 옵션 */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: #fbab16;;
+        }
+        #caution {
+            text-align: center;
+            color: #a76e05;
+        }
+        .container {
             display: flex;
             flex-direction: column;
-            height: 100%;
-            max-width: 800px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: sans-serif;
-          }
-          
-          .chat-header {
-            padding: 10px;
-            background-color: #f2f2f2;
-            border-bottom: 1px solid #ccc;
-            text-align: center;
-          }
-          
-          .chat-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-          }
-          
-          .message {
-            display: flex;
-            max-width: 750px;
-            margin-bottom: 10px;
-          }
-          
-          .message.self {
-            flex-direction: row-reverse;
-          }
-          
-          <!-- .avatar {
-            margin-right: 10px;
-          }
-          
-          .avatar img {
-            display: block;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-          } -->
-          
-          .message-content {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-          }
-          
-          .message-content p {
-            margin: 0;
-          }
-          
-          .time {
-            font-size: 12px;
-            color: #999;
-          }
-          
-          .chat-footer {
-            display: flex;
             align-items: center;
+          }
+          
+        /* 채팅창 스타일링 */
+        #chat-window {
+            width: 500px;
+            height: 400px;
+            background-color: #fffaf0;
+            margin: 0px auto;
             padding: 10px;
-            border-top: 1px solid #ccc;
-          }
-          
-          .chat-footer input[type="text"] {
+            overflow-y: scroll;
+            border: 1px dotted #dc9c25;
+        }
+        .chat-box {
+            color: #000000;
+        }
+        .assistant {
+            background-color: #ffca0a;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 13px;
+            margin-right: 30px;
+            margin-left: 7px;
+        }
+        .message {
+            background-color: #fdedb6;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 13px;
+            margin-right: 7px;
+            margin-left: 30px;
+        }
+
+        /* 입력창 스타일링 */
+        #input-window {
+            width: 500px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #message-input {
             flex: 1;
-            height: 30px;
-            padding: 5px;
-            border: 1px solid #ccc;
+            padding: 10px;
+            border: 1px solid #dc9c25;
             border-radius: 5px;
-          }
-          
-          .chat-footer button {
-            height: 40px;
-            margin-left: 10px;
-            padding: 5px 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        #send-button {
+            padding: 10px 20px;
+            background-color: #ffa500;
+            color: #fff;
             border: none;
             border-radius: 5px;
-            background-color: #008CBA;
-            color: #fff;        
-          }
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 3px 3px #ffd700;
+        }
+        .kakao-ad {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 350px;
+            min-height: 12px;
+        }
     </style>
 </head>
 <body>
-    <div class="chat-window">
-        <div class="chat-header">
-          <h2>수술 후 궁금한걸 물어봐 주세요!</h2>
-          <p>Chat GPT를 이용한 답변을 제공하므로 답변은 올바른 정보일 수 있습니다.</p>
+    <div class="kakao-ad">
+        <ins class="kakao_ad_area" style="display:none;" data-ad-unit = "DAN-hkDGsoZGlsQvxSbL" 
+        data-ad-width = "320" data-ad-height = "50"></ins> 
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="container">
+        <h1 class="title">재활냥이의 상담소</h1>
+        <img src="cat.png" alt="healthcat" width="100px" height="100px">
+        <p id="caution">::: 내가 하는 말은 올바른 정보일 수 있다냥 :::<br>고양이는 원래 정보찾는데 시간이 좀 걸린다옹. 기다려달라옹</p>
+    </div>
+      
+    <div id="chat-window">
+        <div class="chat-box">
+            <div class="assistant">냥냥, 시술 혹은 수술후 재활이 막막하냥?</div>
+            <div class="message">네, 맞아요.</div>
+            <div class="assistant">요즘은 무엇이 불편하냥?</div>
         </div>
-        <div class="chat-body">
-          <div class="message">
-            <div class="message-content">
-              <p>안녕하세요. 반갑습니다. 관절 혹은 근육 수술 후 불편함이 있으신가요?</p>
-              <!-- <span class="time">10:00 AM</span> -->
-            </div>
-          </div>
-          <div class="message self">
-            <!-- <div class="message-content">
-              <p>안녕하세요. 반갑습니다.</p>
-              <span class="time">10:01 AM</span>
-            </div> -->
-          </div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="message-input" placeholder="무릎 인공관절 수술한지 1달이 지났는데 무릎 밑이 아파요">
-            <button id="send-button">보내기</button>
-        </div>
-      </div>
-      <script>
-        const messageInput = document.getElementById("message-input");
-        const sendButton = document.getElementById("send-button");
-        const chatBody = document.querySelector(".chat-body");
-      
-        function sendMessage() {
-          const message = messageInput.value;
-          if (message !== "") {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, "0");
-            const minutes = now.getMinutes().toString().padStart(2, "0");
-            const time = `${hours}:${minutes}`;
-      
-            const messageElement = document.createElement("div");
-            messageElement.classList.add("message", "self");
-      
-            const messageContent = document.createElement("div");
-            messageContent.classList.add("message-content");
-      
-            const messageText = document.createElement("p");
-            messageText.textContent = message;
-      
-            const messageTime = document.createElement("span");
-            messageTime.classList.add("time");
-            messageTime.textContent = time;
-      
-            messageContent.appendChild(messageText);
-            messageContent.appendChild(messageTime);
-      
-            messageElement.appendChild(messageContent);
-      
-            chatBody.appendChild(messageElement);
-      
-            messageInput.value = "";
-          }
+    </div>
+    <div id="loader" class="loader" style="display: none;">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div id="input-window">
+        <input type="text" id="message-input" placeholder="무릎 인공관절 수술한지 1년이 지났는데 무릎 뒤가 아파요">
+        <button id="send-button">전송</button>
+    </div>
+    
+    
+    <script>
+        const messageArea = document.getElementById('chat-window');
+        const messageInput = document.getElementById('message-input');
+        let userMessages = [];
+        let assistantMessages = [];
+        
+        function spinner() {
+            document.getElementById('loader').style.display = "block";
         }
-      
-        sendButton.addEventListener("click", sendMessage);
-        messageInput.addEventListener("keydown", function (event) {
-          if (event.key === "Enter") {
-            event.preventDefault();
+        function scrollToBottom() {
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        const sendMessage = async() => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<a>${messageInput.value}</a>`;
+            messageArea.appendChild(messageElement);    
+            
+            userMessages.push(messageInput.value);
+            messageInput.value='';
+            scrollToBottom();
+            const response = await fetch('https://h7zj4bt2eh.execute-api.ap-northeast-2.amazonaws.com/2023-04-06-02/healthcat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userMessages: userMessages,
+                    assistantMessages: assistantMessages,
+                })
+            });
+
+            const data = await response.json();
+            document.getElementById('loader').style.display = "none";
+            assistantMessages.push(data.assistant);
+
+            // aws 접근 
+            const astrologerMessage = document.createElement('div');
+            astrologerMessage.classList.add('assistant');
+            astrologerMessage.innerHTML = `<p class='assistant'>${data.assistant}</p>`;
+            const p = document.createElement('p');
+            p.classList.add("assistant");
+            astrologerMessage.appendChild(p);
+            messageArea.appendChild(astrologerMessage);       
+            scrollToBottom();     
+        }
+
+        const sendButton = document.getElementById('send-button');
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
             sendMessage();
-          }
+        }
         });
+        
+                                    
       </script>
-      
 </body>
 </html>
