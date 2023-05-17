@@ -30,7 +30,7 @@ app.post('/', async function (req, res) {
     let {userMessages, assistantMessages} = req.body
     // let todayDateTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
     let messages = trainMessage
-    
+
     while (userMessages.length != 0 || assistantMessages.length != 0) {
         if (userMessages.length != 0) {
             messages.push(
