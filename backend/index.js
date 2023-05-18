@@ -1,6 +1,6 @@
-require('dotenv').config(); // .env 파일을 읽어서 환경 변수에 등록
-const apiKey = process.env.apiKey; // apiKey 환경 변수를 불러옴
-const trainMessage = process.env.trainMessange;
+const config = require('./config.js');
+const apiKey = config.apiKey;
+const promptmessage = config.promptmessage;
 const serverless = require('serverless-http');
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -15,8 +15,8 @@ const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
 let corsOptions = {
-    //origin: 'https://healthcat.pages.dev',
-    origin: "*",
+    origin: 'https://healthcat.pages.dev',
+    // origin: "*",
     credentials: true,
 };
 app.use(cors(corsOptions));
@@ -28,9 +28,8 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 // POST method route
 app.post('/', async function (req, res) {
     let {userMessages, assistantMessages} = req.body
-    // let todayDateTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-    let messages = trainMessage
-
+    let messages = promptmessage
+    console.log(messages)
     while (userMessages.length != 0 || assistantMessages.length != 0) {
         if (userMessages.length != 0) {
             messages.push(
@@ -65,14 +64,13 @@ app.post('/', async function (req, res) {
     let result = completion.data.choices[0].message['content']
 
     res.json({"assistant": result});
-    // console.log(result)
 });
 
 module.exports.handler = serverless(app);
-// module.exports.handler = async (event, context) => {
-//   return await serverless(app)(event, context);
-// };
-const port = 3000;
-app.listen(port, () => {
-    console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
-});
+module.exports.handler = async (event, context) => {
+  return await serverless(app)(event, context);
+};
+// const port = 3000;
+// app.listen(port, () => {
+//     console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
+// });
