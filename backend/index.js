@@ -1,6 +1,6 @@
-const backConfig = require('./config.js');
-const apiKey = backConfig.apiKey;
-const promptmessage = backConfig.promptmessage;
+const config = require('./config.js');
+const apiKey = config.apiKey;
+const promptmessage = config.promptmessage;
 const serverless = require('serverless-http'); //Express 앱을 AWS Lambda 함수로 변환
 
 const { Configuration, OpenAIApi } = require("openai");
