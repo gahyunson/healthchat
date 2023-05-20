@@ -19,6 +19,7 @@ body {
 @media screen and (max-width: 800px) {
     body {
         margin: 2%;
+        
         /* height: 85vh; */
     }
     #chat-window {
@@ -133,7 +134,7 @@ h1 {
     font-size: 16px;
 }
 .kakao-ad {
-    display: flex;
+    display:flex;
     justify-content: center;
     align-items: center;
     min-width: 350px;
