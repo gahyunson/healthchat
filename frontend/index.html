@@ -114,6 +114,7 @@
             min-height: 12px;
         }
     </style>
+   
 </head>
 <body>
     <div class="kakao-ad">
@@ -132,17 +133,15 @@
             <div class="assistant">냥냥, 시술 혹은 수술후 재활에 대해 물어보세요. 무엇이 불편한가요?</div>
         </div>
     </div>
-    <div id="loader" class="loader" style="display: none;">
+    <div id="loader" class="loader" style="display: block;">
         <i class="fa fa-spinner fa-spin"></i>
     </div>
     <div id="input-window">
-        <input type="text" id="message-input" placeholder="무릎 인공관절 수술한지 1년이 지났는데 무릎 뒤가 아파">
+        <input type="text" id="message-input" placeholder="수술한 무릎의 뒤쪽이 아파">
         <button id="send-button">전송</button>
     </div>
     
-    
-    <script>
-        
+    <script>       
         const messageArea = document.getElementById('chat-window');
         const messageInput = document.getElementById('message-input');
         let userMessages = [];
@@ -155,6 +154,7 @@
             messageArea.scrollTop = messageArea.scrollHeight;
         }
 
+        let data;
         // sendMessage function defined
         const sendMessage = async() => {
             const messageElement = document.createElement('div');
@@ -165,36 +165,31 @@
             userMessages.push(messageInput.value);
             messageInput.value='';
             scrollToBottom();
-            const response = await fetch('https://h7zj4bt2eh.execute-api.ap-northeast-2.amazonaws.com/2023-04-06-02/healthcat', {
-            //const response = await fetch('http://localhost:3000/', {
+
+            // fetch -> 비동기 실행되는 HTTP 요청보냄, 
+            // 응답받을 때 까지 코드 실행하며 Promise 객체 return
+            //const response = await fetch('https://h7zj4bt2eh.execute-api.ap-northeast-2.amazonaws.com/2023-04-06-02/healthcat', {
+            try {
+                const response = await fetch('http://localhost:3000/',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    userMessages: userMessages,
-                    assistantMessages: assistantMessages,
+                    userMessages:userMessages,
+                    assistantMessages: assistantMessages
                 })
-            }).then(function() {
-                console.log('ok');
-            }).catch(function() {
-                console.log('not ok');
             });
-            if (!response){
-                console.log('Response is undefined');
-                throw new Error('Failed to fetch data');
+                data = await response.json(); // gpt 대답
+            } catch (error){
+                throw error;
             }
-            if (!response.ok) {
-                console.log("한번볼게",userMessages, assistantMessages)
-                const errormessage = `An error has occured: ${response.status}`;
-                throw new Error(errormessage);
-              }
-
-
-            const data = await response.json();
-            document.getElementById('loader').style.display = "none";
+            
+            console.log("Data:",data);
+            spinner();
+            //document.getElementById('loader').style.display = "block";
             assistantMessages.push(data.assistant);
-            console.log("Data:",data)
+            
             // aws 접근 
             const astrologerMessage = document.createElement('div');
             astrologerMessage.classList.add('assistant');
@@ -213,8 +208,7 @@
             sendMessage();
         }
         });
-        
-                                    
+                             
       </script>
 </body>
 </html>
