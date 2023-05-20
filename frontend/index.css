@@ -18,8 +18,8 @@ body {
 /* 모바일 기기에서 적용될 스타일 */
 @media screen and (max-width: 800px) {
     body {
-        margin: 2%;
-        
+        margin: 2% auto;
+        width: 53vh;
         /* height: 85vh; */
     }
     #chat-window {
@@ -103,7 +103,7 @@ h1 {
 .loading-icon {
     display: none;
     position: fixed;
-    top: 30rem;
+    top: 7rem;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
