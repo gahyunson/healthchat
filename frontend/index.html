@@ -62,9 +62,8 @@
             // fetch -> 비동기 실행되는 HTTP 요청보냄, 
             // 응답받을 때 까지 코드 실행하며 Promise 객체 return
             try {
-                
-                //const response = await fetch('https://h7zj4bt2eh.execute-api.ap-northeast-2.amazonaws.com/2023-04-06-02/healthcat', {
-                const response = await fetch('http://localhost:3000/',{
+                const response = await fetch('https://dtm6m72ji5.execute-api.ap-northeast-2.amazonaws.com/default/healthchat', {
+                //const response = await fetch('http://localhost:3000/',{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
