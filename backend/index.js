@@ -38,7 +38,7 @@ var sql = mysql.createConnection({
 // POST method route
 app.post('/', async function (req, res) {
     let {userMessages, assistantMessages} = req.body
-    question_text = userMessages.slice(-1)[0]
+    let question_text = userMessages.slice(-1)[0]
     let messages = [{role: "system", content: "당신은 재활 전문가입니다. 당신은 사람들이 몸에 통증을 느끼면 마사지 혹은 운동, 스트레칭 방법을 추천해줍니다. 의사나 물리치료사 수준의 의학적 지식을 가지고 있습니다. 우리 몸의 각 관절 부위별로 수술 후 재활단계에 대해서 설명할 수 있습니다. 아픈 부위에 대해서 마사지 부위 혹은 운동 방법을 알려줍니다. 어떤 움직임을 할 때 통증이 있는 부위에 대해 설명해줍니다. 아픈부위 주위의 근육 운동 혹은 스트레칭 방법을 알려줍니다."}]
     /* userMessages : 질문글 , messages : 모든 채팅 내용(system 포함), */
 
