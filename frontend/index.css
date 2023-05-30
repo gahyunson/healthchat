@@ -40,6 +40,13 @@ body {
         justify-content: center;
         align-items: center;
     }
+    .kakao-ad {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 85%;
+        min-height: 12px;
+    }
 } 
 /* web */
 @media screen and (min-width: 800px) {
@@ -67,12 +74,20 @@ body {
         justify-content: center;
         align-items: center;
     }
+    .kakao-ad {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 31rem;
+        min-height: 12px;
+        border: 1px solid #553e13;
+    }
 }
 .healthcat img {
     margin-right: 1rem;
 }
 h1 {
-    margin:1%;
+    margin:3%;
     color: #fbab16;;
 }
 #caution {
@@ -132,11 +147,4 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-}
-.kakao-ad {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 350px;
-    min-height: 12px;
 }

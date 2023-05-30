@@ -13,7 +13,8 @@
     <div class="container">
         <h1 class="title">재활냥이의 상담소</h1>
         <img src="cat.png" alt="healthcat" width="100px" height="100px">
-        <p id="caution">:: 내가 하는 말은 올바른 정보일 수 있다냥 ::</p>
+        <p id="caution">:: 내가 하는 말은 올바른 정보일 수 있다냥 ::<input type="button" value="i" onclick="guide_window();"></p>
+        
     </div>
       
     <div id="chat-window">
@@ -30,6 +31,10 @@
     </div>
     
     <script>       
+        function guide_window(){
+            window.open("guide.html","Guide",
+                        "width=" +window.screen.width/2 + ", height=" + window.screen.height/2 + ", top=" + window.screen.width/2 + ",left=" + window.screen.height/2);
+        }
         const messageArea = document.getElementById('chat-window');
         const messageInput = document.getElementById('message-input');
         let userMessages = [];
@@ -41,7 +46,6 @@
         function hideLoadingIcon() {
           document.getElementById('loading-icon').style.display = "none";
         }
-
         function scrollToBottom() {
             messageArea.scrollTop = messageArea.scrollHeight;
         }
@@ -78,7 +82,7 @@
             } catch (error){
                 throw error;
             }
-            <!-- console.log("Data:",data); -->
+            //console.log("Data:",data);
             assistantMessages.push(data.assistant);
             hideLoadingIcon();
             

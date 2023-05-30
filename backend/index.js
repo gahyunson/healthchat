@@ -1,13 +1,19 @@
-const config = require('./config.js');
-const apiKey = config.apiKey;
-const sqlPassword = config.sqlPassword;
+require("dotenv").config();
+const mongoUrl = process.env.ATLAS_URI;
+const apiKey = process.env.apiKey; 
+// const config = require('./config.js');
+// const apiKey = config.apiKey;
+// const sqlPassword = config.sqlPassword;
 // const promptmessage = config.promptmessage;
-// const serverless = require('serverless-http'); //Express 앱을 AWS Lambda 함수로 변환
+const serverless = require('serverless-http'); //Express 앱을 AWS Lambda 함수로 변환
 
 const { Configuration, OpenAIApi } = require("openai");
 const express = require('express')
 var cors = require('cors')
 const app = express()
+
+const User = require('./models/User');
+const mongoose = require('mongoose');
 
 const configuration = new Configuration({
     apiKey: apiKey,
@@ -17,8 +23,8 @@ const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
 let corsOptions = {
-    origin: 'https://healthcat.pages.dev/',
-    // origin: "*",
+    // origin: 'https://healthcat.pages.dev',
+    origin: "*",
     credentials: true,
 };
 app.use(cors(corsOptions));
@@ -27,19 +33,16 @@ app.use(cors(corsOptions));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-var mysql = require('mysql2');
-var sql = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: sqlPassword,
-  database: 'healthchat'
-});
-
 // POST method route
 app.post('/', async function (req, res) {
+    // mongoDB
+    const newChat = new User();
+
     let {userMessages, assistantMessages} = req.body
-    let question_text = userMessages.slice(-1)[0]
-    let messages = [{role: "system", content: "당신은 재활 전문가입니다. 당신은 사람들이 몸에 통증을 느끼면 마사지 혹은 운동, 스트레칭 방법을 추천해줍니다. 의사나 물리치료사 수준의 의학적 지식을 가지고 있습니다. 우리 몸의 각 관절 부위별로 수술 후 재활단계에 대해서 설명할 수 있습니다. 아픈 부위에 대해서 마사지 부위 혹은 운동 방법을 알려줍니다. 어떤 움직임을 할 때 통증이 있는 부위에 대해 설명해줍니다. 아픈부위 주위의 근육 운동 혹은 스트레칭 방법을 알려줍니다."}]
+    newChat.question = userMessages.slice(-1)[0]
+
+    //let messages = [{role: "system", content: "당신은 재활 전문가입니다. 당신은 사람들이 몸에 통증을 느끼면 마사지 혹은 운동, 스트레칭 방법을 추천해줍니다. 의사나 물리치료사 수준의 의학적 지식을 가지고 있습니다. 우리 몸의 각 관절 부위별로 수술 후 재활단계에 대해서 설명할 수 있습니다. 아픈 부위에 대해서 마사지 부위 혹은 운동 방법을 알려줍니다. 어떤 움직임을 할 때 통증이 있는 부위에 대해 설명해줍니다. 아픈부위 주위의 근육 운동 혹은 스트레칭 방법을 알려줍니다."}]
+    let messages = [{role: "system", content: "You are a helpful rehabilitation counselor. You have the medical knowledge of a doctor or physical therapist. With 30 years of experience, when people ask why they are sick, they can explain medical knowledge in an easy-to-understand way for ordinary people. If someone tells you about pain in a particular joint, tell them the cause and guide you on how to reduce the pain. You have to explain how exactly do about massage or exercise. You have to tell people How can they treatment themself."}]
     /* userMessages : 질문글 , messages : 모든 채팅 내용(system 포함), */
 
     while (userMessages.length != 0 || assistantMessages.length != 0) {
@@ -75,17 +78,15 @@ app.post('/', async function (req, res) {
     assistantMessages.push(result);
     res.json({"assistant": result});
 
-    sql.connect(function(err){
-      if (err) console.log('err:',err.message);
-      console.log('Connected at SQL!');
-      var sqlInsert = `INSERT INTO Questions (id, question_text, answer_text) 
-                        VALUES (0, '${question_text}','${result}')`;
-      sql.query(sqlInsert, function(err, result){
-        if (err) throw err;
-        console.log('inserted!');
-      })
-    })
+    newChat.answer = result
+    newChat.save()
+    .then(console.log('User Created Successfully'))
+    .catch((err)=>{console.log(err)})
 });
+
+async function main() {
+  await mongoose.connect(mongoUrl);
+}
 
 // module.exports.handler = serverless(app);
 // module.exports.handler = async (event, context) => {
@@ -93,5 +94,6 @@ app.post('/', async function (req, res) {
 // };
 const port = 3000;
 app.listen(port, () => {
+    main()
     console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
 });
