@@ -74,13 +74,14 @@ app.post('/', async function (req, res) {
       }
     }
     let result = completion.data.choices[0].message.content
-    // result -> answer_text
+    // result -> answer
     assistantMessages.push(result);
     res.json({"assistant": result});
 
+    // if (result.includes(""))
     newChat.answer = result
     newChat.save()
-    .then(console.log('User Created Successfully'))
+    .then(console.log('User saved Successfully'))
     .catch((err)=>{console.log(err)})
 });
 
