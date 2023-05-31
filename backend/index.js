@@ -1,23 +1,15 @@
 require("dotenv").config();
 const mongoUrl = process.env.ATLAS_URI;
 const apiKey = process.env.apiKey; 
-// const config = require('./config.js');
-// const apiKey = config.apiKey;
-// const sqlPassword = config.sqlPassword;
-// const promptmessage = config.promptmessage;
-const serverless = require('serverless-http'); //Express 앱을 AWS Lambda 함수로 변환
 
 const { Configuration, OpenAIApi } = require("openai");
+
 const express = require('express')
-var cors = require('cors')
 const app = express()
 
-const User = require('./models/User');
-const mongoose = require('mongoose');
-
+var cors = require('cors')
 const configuration = new Configuration({
     apiKey: apiKey,
-    // promptmessage: promptmessage
   });
 const openai = new OpenAIApi(configuration);
 
@@ -28,10 +20,15 @@ let corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
-
 //POST 요청 받을 수 있게 만듬
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+//mongoDB - Node.js library
+const User = require('./models/User');
+const mongoose = require('mongoose');
+
+const serverless = require('serverless-http'); //Express 앱을 AWS Lambda 함수로 변환
 
 // POST method route
 app.post('/', async function (req, res) {
@@ -78,14 +75,14 @@ app.post('/', async function (req, res) {
     assistantMessages.push(result);
     res.json({"assistant": result});
 
-    // if (result.includes(""))
+    // if (result.includes("")) 정규표현식 이용한 answer filter
     newChat.answer = result
     newChat.save()
     .then(console.log('User saved Successfully'))
     .catch((err)=>{console.log(err)})
 });
 
-async function main() {
+async function mongoFunc() {
   await mongoose.connect(mongoUrl);
 }
 
@@ -95,6 +92,6 @@ async function main() {
 // };
 const port = 3000;
 app.listen(port, () => {
-    main()
+    mongoFunc()
     console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
 });

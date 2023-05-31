@@ -53,15 +53,15 @@ body {
     body {
         margin-top: 1%;
         width: 32rem;
-        height: 50rem;
+        height: 43rem;
     }
     /* 채팅창 스타일링 */
     #chat-window {
         width: 30rem;
-        height: 60%;
+        height: 54%;
         font-size: 1.3rem;
         background-color: #fffaf0;
-        margin: 3% auto;
+        margin: 1% auto;
         padding: 3px;
         overflow-y: scroll;
         border: 1px dotted #dc9c25;
@@ -69,7 +69,7 @@ body {
     }
     #input-window {
         width: 30rem;
-        margin: 1px auto;
+        margin: 0.5rem auto;
         display: flex;
         justify-content: center;
         align-items: center;
