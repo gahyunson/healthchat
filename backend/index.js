@@ -15,8 +15,8 @@ const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
 let corsOptions = {
-    // origin: 'https://healthcat.pages.dev',
-    origin: "*",
+    origin: 'https://healthcat.pages.dev',
+    // origin: "*",
     credentials: true,
 };
 app.use(cors(corsOptions));
