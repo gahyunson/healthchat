@@ -39,7 +39,7 @@ app.post('/', async function (req, res) {
     newChat.question = userMessages.slice(-1)[0]
 
     //let messages = [{role: "system", content: "당신은 재활 전문가입니다. 당신은 사람들이 몸에 통증을 느끼면 마사지 혹은 운동, 스트레칭 방법을 추천해줍니다. 의사나 물리치료사 수준의 의학적 지식을 가지고 있습니다. 우리 몸의 각 관절 부위별로 수술 후 재활단계에 대해서 설명할 수 있습니다. 아픈 부위에 대해서 마사지 부위 혹은 운동 방법을 알려줍니다. 어떤 움직임을 할 때 통증이 있는 부위에 대해 설명해줍니다. 아픈부위 주위의 근육 운동 혹은 스트레칭 방법을 알려줍니다."}]
-    let messages = [{role: "system", content: "You are a helpful rehabilitation counselor. You have the medical knowledge of a doctor or physical therapist. With 30 years of experience, when people ask why they are sick, they can explain medical knowledge in an easy-to-understand way for ordinary people. If someone tells you about pain in a particular joint, tell them the cause and guide you on how to reduce the pain. You have to explain how exactly do about massage or exercise. You have to tell people How can they treatment themself."}]
+    let messages = [{role: "system", content: "You are a helpful rehabilitation counselor. You have the medical knowledge of a doctor or physical therapist. With 30 years of experience, when people ask why they are sick, they can explain medical knowledge in an easy-to-understand way for ordinary people. If someone tells you about pain in a particular joint, tell them the cause and guide you on how to reduce the pain. You have to explain how exactly do about massage or exercise. You have to tell people How can they treatment themself.Ask again where and how it hurts in detail, and tell me two specific solutions."}]
     /* userMessages : 질문글 , messages : 모든 채팅 내용(system 포함), */
 
     while (userMessages.length != 0 || assistantMessages.length != 0) {
@@ -75,23 +75,28 @@ app.post('/', async function (req, res) {
     assistantMessages.push(result);
     res.json({"assistant": result});
 
-    // if (result.includes("")) 정규표현식 이용한 answer filter
-    newChat.answer = result
-    newChat.save()
-    .then(console.log('User saved Successfully'))
-    .catch((err)=>{console.log(err)})
+    // // if (result.includes("")) 정규표현식 이용한 answer filter
+    // newChat.answer = result
+    // newChat.save()
+    // .then(console.log('monkey masic'))
+    // .catch((err)=>{console.log(err)})
 });
 
 async function mongoFunc() {
   await mongoose.connect(mongoUrl);
 }
 
-// module.exports.handler = serverless(app);
-// module.exports.handler = async (event, context) => {
-//   return await serverless(app)(event, context); //Lambda 함수의 핸들러 함수를 정의
-// };
-const port = 3000;
-app.listen(port, () => {
-    mongoFunc()
-    console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
-});
+module.exports.handler = serverless(app);
+module.exports.handler = async (event, context) => {
+  return await serverless(app)(event, context); //Lambda 함수의 핸들러 함수를 정의
+};
+try{
+    const port = 3000;
+    app.listen(port, () => {
+        // mongoFunc()
+        console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
+    });
+    
+} catch {
+    console.log(err)
+}
