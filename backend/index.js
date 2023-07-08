@@ -86,10 +86,11 @@ async function mongoFunc() {
   await mongoose.connect(mongoUrl);
 }
 
-module.exports.handler = serverless(app);
-module.exports.handler = async (event, context) => {
-  return await serverless(app)(event, context); //Lambda 함수의 핸들러 함수를 정의
-};
+// module.exports.handler = serverless(app);
+// module.exports.handler = async (event, context) => {
+//   return await serverless(app)(event, context); //Lambda 함수의 핸들러 함수를 정의
+// };
+
 try{
     const port = 3000;
     app.listen(port, () => {
