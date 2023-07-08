@@ -1,8 +1,4 @@
 # Healthchat
-2. Work Process 
-3. version Images
-
-
 *Ask* \[Healthcat\] *About Your Pain*
 
 ## Introduction
@@ -19,6 +15,7 @@ Welcome to Healthcat, a powerful tool designed to help you better understand and
 ## Work Process
 To get a better understanding of Healthcat's work process, please refer to our [Notion Link](https://www.notion.so/gahyunson/GPT-98a8b7de14cd47cea4e8bbcf225f85a9?pvs=4) where I have documented the detailed steps involved.
 
+## Example
 <p align="center">
   <h3>Mobile version</h3>
   <ul>
