@@ -1,8 +1,23 @@
 # Healthchat
-1. Ask to healthcat about your pain
-2. Work Process [Notion Link](https://www.notion.so/gahyunson/GPT-98a8b7de14cd47cea4e8bbcf225f85a9?pvs=4)
+2. Work Process 
 3. version Images
 
+
+*Ask* \[Healthcat\] *About Your Pain*
+
+## Introduction
+Welcome to Healthcat, a powerful tool designed to help you better understand and manage your pain. Whether you're experiencing physical discomfort or need guidance on a specific issue, Healthcat is here to assist you. By asking Healthcat about your pain, you can gain valuable insights and personalized recommendations to improve your well-being.
+
+## How to Use
+1. Visit our website at [https://healthcat.pages.dev/].
+2. You can directly access the Healthcat web application.
+3. On the Healthcat website, you will find an input field specifically designed for pain-related questions or concerns. Enter your pain-related questions or concerns in the provided input field.
+4. Healthcat will analyze your input and provide you with relevant information.
+5. Follow the guidance and advice given by Healthcat to manage your pain effectively.
+6. Review the results and recommendations provided by Healthcat.
+
+## Work Process
+To get a better understanding of Healthcat's work process, please refer to our [Notion Link](https://www.notion.so/gahyunson/GPT-98a8b7de14cd47cea4e8bbcf225f85a9?pvs=4) where I have documented the detailed steps involved.
 
 <p align="center">
   <h3>Mobile version</h3>
@@ -19,3 +34,6 @@
   </ul>
 <img src="docImage/webVersion.png" width="40%" height="60%">
 </p>
+
+**Version**
+Current version: 1.0.0
